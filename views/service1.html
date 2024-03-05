@@ -4,9 +4,24 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Service 1</title>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Example of fetching data from your server's API endpoint
+      fetch('/api/data') // Adjust this endpoint according to your actual API.
+        .then(response => response.json())
+        .then(data => {
+          // Example: Dynamically display data in the page
+          const dataElement = document.createElement('p');
+          dataElement.textContent = `Fetched data: ${data.message}`;
+          document.body.appendChild(dataElement);
+        })
+        .catch(error => console.error('Error fetching data:', error));
+    });
+  </script>
 </head>
 <body>
   <h1>This is Service 1</h1>
   <p>Running on Port 3000</p>
+  <!-- Placeholder for dynamic content -->
 </body>
 </html>

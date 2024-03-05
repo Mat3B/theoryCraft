@@ -1,0 +1,12 @@
+{
+  "expo": {
+    "extra": {
+      "eas": {
+        "projectId": "add85761-8308-49e0-af54-84bc20a305c0"
+      }
+    },
+    "ios": {
+      "bundleIdentifier": "com.brelnd.theorycraft"
+    }
+  }
+}

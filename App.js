@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Alert, Linking } from 'react-native';
 import { Camera } from 'expo-camera';
+import { WebView } from 'react-native-webview';
 
 export default function App() {
   const [hasPermission, setHasPermission] = useState(null);
+  const [scanning, setScanning] = useState(true);
+  const [uri, setUri] = useState('');
 
   useEffect(() => {
     (async () => {
@@ -11,6 +14,18 @@ export default function App() {
       setHasPermission(status === 'granted');
     })();
   }, []);
+
+  const handleBarCodeScanned = ({ type, data }) => {
+    if (scanning) {
+      setScanning(false); // Stop scanning to prevent multiple scans
+  
+      // Assuming the QR code directly encodes the URL
+      // Directly set the scanned data as the URI for the WebView
+      setUri(data);
+    }
+  };
+  
+
 
   if (hasPermission === null) {
     return <View />;
@@ -20,9 +35,18 @@ export default function App() {
     return <Text>No access to camera</Text>;
   }
 
+  // Render the WebView to display `service1.html` if `uri` state is set
+  if (uri) {
+    return <WebView source={{ uri }} style={{ flex: 1 }} />;
+  }
+
   return (
     <View style={styles.container}>
-      <Camera style={{ flex: 1 }} type={Camera.Constants.Type.back}>
+      <Camera
+        style={{ flex: 1 }}
+        type={Camera.Constants.Type.back}
+        onBarCodeScanned={scanning ? handleBarCodeScanned : undefined}
+      >
         {/* Your camera content here */}
       </Camera>
     </View>
