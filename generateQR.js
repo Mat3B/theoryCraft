@@ -2,7 +2,7 @@ const qr = require('qrcode');
 const fs = require('fs');
 
 // Base URL for ngrok forwarding - replace this with your current ngrok URL
-const ngrokBaseUrl = 'https://6577-198-21-201-94.ngrok-free.app';
+const ngrokBaseUrl = ' https://54fd-198-21-202-119.ngrok-free.app';
 
 const qrCodeMapping = {
   'uniqueId1': 'service1',

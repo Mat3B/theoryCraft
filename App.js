@@ -7,25 +7,42 @@ export default function App() {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanning, setScanning] = useState(true);
   const [uri, setUri] = useState('');
+  const [location, setLocation] = useState(null);
+  const [errorMsg, setErrorMsg] = useState(null);
 
   useEffect(() => {
     (async () => {
       const { status } = await Camera.requestCameraPermissionsAsync();
       setHasPermission(status === 'granted');
+
+      if (status === 'granted') {
+        navigator.geolocation.getCurrentPosition(
+          position => {
+            setLocation(position.coords);
+          },
+          error => {
+            setErrorMsg(error.message);
+          }
+        );
+      } else {
+        setErrorMsg('Camera permission not granted');
+      }
     })();
   }, []);
 
   const handleBarCodeScanned = ({ type, data }) => {
     if (scanning) {
       setScanning(false); // Stop scanning to prevent multiple scans
-  
+
       // Assuming the QR code directly encodes the URL
       // Directly set the scanned data as the URI for the WebView
       setUri(data);
     }
   };
-  
 
+  if (errorMsg) {
+    return <Text>{errorMsg}</Text>;
+  }
 
   if (hasPermission === null) {
     return <View />;

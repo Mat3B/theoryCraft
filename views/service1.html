@@ -5,79 +5,171 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Service 1</title>
     <style>
-      * {
-          margin: 0;
-          padding: 0;
-          box-sizing: border-box;
-          list-style-type: none;
-          font-family: 'Arial', sans-serif;
-      }
-      body {
-          background: #1E1F25;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          height:90vh;
-      }
-      .welcome-message {
-        color: #ebebeb;
-        margin-bottom: 50px; /* Adjusted space below the title */
-        font-size: 40px; /* Increased font size for the title */
-        opacity: 0;
-        animation: fadeInDown 2s forwards;
-        margin-bottom: 15vh; /* Shift the title up */
-    }
-      .menu {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          gap: 40px; /* Increased gap for larger elements */
-      }
-      .menu li {
-          background-color: #333;
-          color: #ebebeb;
-          padding: 20px 40px; /* More padding for larger buttons */
-          border-radius: 40px; /* Adjusted for aesthetic */
-          text-transform: uppercase;
-          cursor: pointer;
-          font-weight: bold;
-          font-size: 20px; /* Larger font size for button text */
-          width: 300px; /* Increased width for a more prominent appearance */
-          min-width: 250px; /* Adjusted minimum width */
-          opacity: 0;
-          animation: fadeInDown 2s forwards;
-          animation-delay: 1s;
-      }
-      .menu li:hover {
-          background-color: #444;
-          transform: translateY(-5px);
-      }
-      .menu li:active {
-          transform: translateY(2px);
-      }
-      @keyframes fadeInDown {
-          from {
-              opacity: 0;
-              transform: translateY(-20px);
-          }
-          to {
-              opacity: 1;
-              transform: translateY(0);
-          }
-      }
-
-  </style>
-  
-  
-  
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            list-style-type: none;
+            font-family: 'Arial', sans-serif;
+        }
+        body {
+            background: #1E1F25;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            height: auto;
+            padding-top: 20px;
+        }
+        .welcome-message, .signup-header {
+            color: #ebebeb;
+            margin-bottom: 50px;
+            font-size: 40px;
+            opacity: 0;
+            animation: fadeInDown 2s forwards;
+            margin-bottom: 15vh;
+        }
+        .menu, .signup-form, .location-verification {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+        .menu li, .signup-form input, .signup-form button, .location-verification button {
+            background-color: #333;
+            color: #ebebeb;
+            padding: 20px 40px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 20px;
+            width: 300px;
+            min-width: 250px;
+            opacity: 0;
+            animation: fadeInDown 2s forwards;
+            animation-delay: 1s;
+            text-align: center;
+        }
+        .menu li:hover, .signup-form button:hover, .location-verification button:hover {
+            background-color: #444;
+            transform: translateY(-5px);
+        }
+        .menu li:active, .signup-form button:active, .location-verification button:active {
+            transform: translateY(2px);
+        }
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
 </head>
 <body>
-    <h1 class="welcome-message">Welcome to Mill 1</h1>
-    <ul class="menu">
-        <li onclick="location.href='/login'">Login</li>
-        <li onclick="location.href='/info'">Mill Information</li>
-        <li onclick="location.href='/help'">Help</li>
-    </ul>
+    <div id="mainContent">
+        <h1 class="welcome-message">Welcome to Mill 1</h1>
+        <ul class="menu">
+            <li onclick="showSignup()">Sign Up</li>
+            <li onclick="location.href='/login'">Login</li>
+            <li onclick="location.href='/info'">Mill Information</li>
+            <li onclick="location.href='/help'">Help</li>
+        </ul>
+    </div>
+
+    <div id="signupSection" class="hidden">
+        <h2 class="signup-header">Sign Up</h2>
+        <div id="locationVerification" class="location-verification hidden">
+            <!-- Location prompt will be inserted here -->
+        </div>
+        <div class="signup-form hidden">
+            <input type="text" placeholder="Name">
+            <input type="email" placeholder="Email">
+            <button onclick="alert('Signup Complete')">Sign Up</button>
+        </div>
+    </div>
+
+    <script>
+        const validLocations = {
+            "Clemson University": { lat: 34.67833, lng: -82.83917 },
+            // Define more locations as needed
+        };
+
+        function showSignup() {
+            document.getElementById('mainContent').style.display = 'none';
+            document.getElementById('signupSection').style.display = 'block';
+            getUserLocation();
+        }
+
+        function getUserLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    const userPos = { lat: position.coords.latitude, lng: position.coords.longitude };
+                    let nearestLocation = findNearestLocation(userPos, validLocations);
+                    if (nearestLocation) {
+                        const locationVerificationDiv = document.getElementById('locationVerification');
+                        locationVerificationDiv.innerHTML = `Are you currently located at <span>${nearestLocation.name}</span>?<br>` +
+                            `<button onclick="handleLocationResponse(true)">Yes</button>` +
+                            `<button onclick="handleLocationResponse(false)">No</button>`;
+                        locationVerificationDiv.classList.remove('hidden');
+                    } else {
+                        alert("No valid location found nearby.");
+                    }
+                }, function(error) {
+                    alert("Error getting location: " + error.message);
+                });
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        }
+
+        function handleLocationResponse(isAtLocation) {
+            if (isAtLocation) {
+                // Proceed with the signup process
+                document.querySelector('.signup-form').classList.remove('hidden');
+                document.getElementById('locationVerification').classList.add('hidden');
+            } else {
+                alert("You need to be at a valid location to sign up.");
+                // Optionally, take further actions like redirecting the user
+            }
+        }
+
+        function findNearestLocation(userPos, locations) {
+            let nearest = null;
+            let shortestDistance = Infinity;
+            Object.keys(locations).forEach(key => {
+                let loc = locations[key];
+                let distance = calculateDistance(userPos.lat, userPos.lng, loc.lat, loc.lng);
+                if (distance < shortestDistance) {
+                    shortestDistance = distance;
+                    nearest = { name: key, distance: distance };
+                }
+            });
+            return nearest;
+        }
+
+        function calculateDistance(lat1, lon1, lat2, lon2) {
+            var R = 6371; // Earth's radius in kilometers
+            var dLat = degreesToRadians(lat2 - lat1);
+            var dLon = degreesToRadians(lon2 - lon1);
+            var a =
+                Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                Math.cos(degreesToRadians(lat1)) * Math.cos(degreesToRadians(lat2)) *
+                Math.sin(dLon / 2) * Math.sin(dLon / 2);
+            var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            return R * c;
+        }
+
+        function degreesToRadians(degrees) {
+            return degrees * (Math.PI / 180);
+        }
+    </script>
 </body>
 </html>
