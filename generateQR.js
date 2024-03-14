@@ -1,30 +1,20 @@
 const qr = require('qrcode');
 const fs = require('fs');
 
-// Base URL for ngrok forwarding - replace this with your current ngrok URL
-const ngrokBaseUrl = ' https://54fd-198-21-202-119.ngrok-free.app';
+// Get the unique ID from command-line arguments
+const uniqueId = process.argv[2]; // Assuming unique ID is passed as the first command-line argument
 
-const qrCodeMapping = {
-  'uniqueId1': 'service1',
-  'uniqueId2': 'service2',
-  'uniqueId3': 'service3', // Add this line for service3
-  // Add other mappings as needed
-};
+// Manually enter the ngrok URL
+const ngrokUrl = 'https://e0c0-164-153-54-188.ngrok-free.app';
 
+// Construct the full URL using the ngrok URL and unique ID
+const fullUrl = `${ngrokUrl}/${uniqueId}`;
 
-// Create the qrcodes directory if it doesn't exist
-if (!fs.existsSync('./qrcodes')) {
-  fs.mkdirSync('./qrcodes');
-}
-
-// Generate QR codes for each unique ID, including the ngrok URL
-for (const uniqueId in qrCodeMapping) {
-  const serviceId = qrCodeMapping[uniqueId];
-  // Construct the full URL for each service using the ngrok base URL
-  const fullUrl = `${ngrokBaseUrl}/${serviceId}`;
-
-  qr.toFile(`./qrcodes/${uniqueId}.png`, fullUrl, { type: 'png' }, (err) => {
-    if (err) throw err;
-    console.log(`QR code generated for ${uniqueId}: ${fullUrl}`);
-  });
-}
+// Generate QR code using the full URL
+qr.toFile(`./qrcodes/${uniqueId}.png`, fullUrl, { type: 'png' }, (err) => {
+  if (err) {
+    console.error('Error generating QR code:', err);
+    return;
+  }
+  console.log(`QR code generated for ${uniqueId}: ${fullUrl}`);
+});
