@@ -31,34 +31,35 @@
             <button type="submit">Sign Up</button>
         </form>
     </div>
-
-    <!-- Moved script here -->
     <script>
-        function submitSignupForm() {
-            const form = document.getElementById('signupForm');
-            const data = {
-                name: form.elements.name.value,
-                email: form.elements.email.value,
-                role: form.elements.role.value
-            };
 
-            fetch('http://localhost:3000/service1/signup', {  // Assuming the endpoint is at /signup
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data)
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Success:', data);
-                if (data.qrPath) {
-                    document.getElementById('qrCodeImg').src = 'http://localhost:3000' + data.qrPath;
-                    document.getElementById('qrCodeImg').style.display = 'block';
-                }
-            })
-            .catch(error => console.error('Error:', error));
-        }
+
+        function submitSignupForm() {
+                const form = document.getElementById('signupForm');
+                const data = {
+                    name: form.elements.name.value,
+                    email: form.elements.email.value,
+                    role: form.elements.role.value
+                };
+    
+                fetch('http://localhost:3000/service1/signup', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Success:', data);
+                    if (data.qrPath) {
+                        document.getElementById('qrCodeImg').src = 'http://localhost:3000' + data.qrPath;
+                        document.getElementById('qrCodeImg').style.display = 'block';
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            }
     </script>
+    
 </body>
 </html>
