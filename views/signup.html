@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="/service1/signup.css"> <!-- Updated path to signup.css -->
+</head>
+<body>
+    <div class="registration-container">
+        <h1 class="signup-title">Sign Up</h1>
+        <form id="signupForm" class="signup-form" method="POST" action="/signup">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" placeholder="Enter your name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+            </div>
+            <div class="form-group">
+                <label for="role">Role:</label>
+                <select id="role" name="role" required>
+                    <option value="">Select your role</option>
+                    <option value="landowner">Landowner</option>
+                    <option value="mill owner">Mill Owner</option>
+                    <option value="logger">Logger</option>
+                    <option value="end user">End User</option>
+                </select>
+            </div>
+            <button type="submit">Sign Up</button>
+        </form>
+    </div>
+
+    <!-- Moved script here -->
+    <script>
+        function submitSignupForm() {
+            const form = document.getElementById('signupForm');
+            const data = {
+                name: form.elements.name.value,
+                email: form.elements.email.value,
+                role: form.elements.role.value
+            };
+
+            fetch('http://localhost:3000/service1/signup', {  // Assuming the endpoint is at /signup
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                if (data.qrPath) {
+                    document.getElementById('qrCodeImg').src = 'http://localhost:3000' + data.qrPath;
+                    document.getElementById('qrCodeImg').style.display = 'block';
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
+</body>
+</html>

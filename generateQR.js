@@ -3,9 +3,12 @@ const fs = require('fs');
 
 // Get the unique ID from command-line arguments
 const uniqueId = process.argv[2]; // Assuming unique ID is passed as the first command-line argument
-
+//
+//
+// UPDATE
+// UPDATE
 // Manually enter the ngrok URL
-const ngrokUrl = 'https://e0c0-164-153-54-188.ngrok-free.app';
+const ngrokUrl = 'https://bb4a-164-153-54-188.ngrok-free.app';
 
 // Construct the full URL using the ngrok URL and unique ID
 const fullUrl = `${ngrokUrl}/${uniqueId}`;

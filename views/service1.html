@@ -4,204 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Service 1</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            list-style-type: none;
-            font-family: 'Arial', sans-serif;
-        }
-        body {
-            background: #1E1F25;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            height: auto;
-            padding-top: 20px;
-        }
-        .welcome-message, .signup-header {
-            color: #ebebeb;
-            margin-bottom: 50px;
-            font-size: 40px;
-            opacity: 0;
-            animation: fadeInDown 2s forwards;
-            margin-bottom: 15vh;
-        }
-        .menu, .signup-form, .location-verification {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-        }
-        .signup-header, .location-verification h2 {
-            width: 100%; /* Ensure these elements take up the full width of their container */
-            text-align: center; /* Center the text within these elements */
-        }
+    <link rel="stylesheet" href="style.css"> <!-- Add this line to link the CSS file -->
+    
 
-        .menu li, .signup-form input, .signup-form button, .location-verification button {
-            background-color: #333;
-            color: #ebebeb;
-            padding: 20px 40px;
-            border-radius: 20px;
-            text-transform: uppercase;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 20px;
-            width: 300px;
-            min-width: 250px;
-            opacity: 0;
-            animation: fadeInDown 2s forwards;
-            animation-delay: 1s;
-            text-align: center;
-        }
-        .signup-form select {
-            background-color: #333; /* Match the input background */
-            color: #ebebeb; /* Match the input text color */
-            padding: 20px 40px; /* Match the input padding */
-            border-radius: 20px; /* Match the input border-radius */
-            text-transform: uppercase; /* Match the input text styling */
-            font-weight: bold; /* Match the input font weight */
-            font-size: 20px; /* Match the input font size */
-            width: 300px; /* Match the input width */
-            min-width: 250px; /* Match the input min-width */
-            -webkit-appearance: none; /* Remove default style in WebKit browsers */
-            -moz-appearance: none; /* Remove default style in Mozilla browsers */
-            appearance: none; /* Remove default style to apply custom styles */
-            cursor: pointer; /* Ensure it's clear the dropdown is interactive */
-         }
-         .signup-form input, .signup-form button, .signup-form select {
-            /* Fade-in animation settings */
-            
-            opacity: 0;
-            animation: fadeInDown 2s forwards;
-            animation-delay: 1s;
-            
-        }
-
-        .signup-form select {
-            /* Dropdown styles, matching other inputs/buttons */
-            background-color: #333;
-            color: #ebebeb;
-            padding: 20px 40px;
-            border-radius: 20px;
-            text-transform: uppercase;
-            font-weight: bold;
-            font-size: 20px;
-            width: 270px;
-            min-width: 250px;
-            margin-top: 10px; /* Increase this value to push the button further down */
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-            cursor: pointer;
-            /* Attempt to center text */
-            text-align-last: center;
-            -moz-text-align-last: center;
-            text-align: center;
-        }
-
-        .menu li:hover, .signup-form button:hover, .location-verification button:hover {
-            background-color: #444;
-            transform: translateY(-5px);
-        }
-        .menu li:active, .signup-form button:active, .location-verification button:active {
-            transform: translateY(2px);
-        }
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        .hidden {
-            display: none;
-        }
-        /* New styles for centering form inputs and buttons */
-        .signup-form form {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-        }
-        .signup-form input, .signup-form button {
-            width: calc(100% - 40px); /* Adjust width considering padding */
-            max-width: 400px; /* Prevents elements from becoming too wide */
-            margin: 10px 0; /* Add some vertical space between form elements */
-        }
-        .signup-form button {
-            margin-top: 150px; /* Increase this value to push the button further down */
-        }
-    </style>
 </head>
 <body>
-<body>
     <div id="mainContent">
-        <h1 class="welcome-message">Welcome to Mill 1</h1>
+        <h1 class="welcome-message">Welcome to Clemson Forestry</h1>
         <ul class="menu">
             <li onclick="showSignup()">Sign Up</li>
             <li onclick="location.href='/login'">Login</li>
             <li onclick="location.href='/info'">Mill Information</li>
             <li onclick="location.href='/help'">Help</li>
         </ul>
-    </div>
+    </div> 
 
     <div id="signupSection" class="hidden">
-        <h2 class="signup-header">Sign Up</h2>
+        <h2 class="signup-header"></h2>
         <div id="locationVerification" class="location-verification hidden">
-            <!-- Location prompt will be inserted here -->
         </div>
-        <div class="signup-form hidden">
-            <form id="signupForm">
-                <input type="text" name="name" placeholder="Name" required>
-                <input type="email" name="email" placeholder="Email" required>
-                <!-- Role dropdown menu -->
-                <select name="role" required>
-                    <option value="">ROLE</option>
-                    <option value="landowner">Landowner</option>
-                    <option value="mill owner">Mill Owner</option>
-                    <option value="logger">Logger</option>
-                    <option value="end user">End User</option>
-                </select>
-                <div class="form-spacer"></div> <!-- Spacer element, adjust as necessary -->
-                <button type="button" onclick="submitSignupForm()">Sign Up</button>
-            </form>
-        </div>
-        
-        <img id="qrCodeImg" src="" alt="QR Code" style="display: none;">
 
 
         <script>
-            function submitSignupForm() {
-                const form = document.getElementById('signupForm');
-                const data = {
-                    name: form.elements.name.value,
-                    email: form.elements.email.value,
-                    role: form.elements.role.value
-                };
-    
-                fetch('http://localhost:3000/signup', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(data)
-                })
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Success:', data);
-                    if (data.qrPath) {
-                        document.getElementById('qrCodeImg').src = 'http://localhost:3000' + data.qrPath;
-                        document.getElementById('qrCodeImg').style.display = 'block';
-                    }
-                })
-                .catch(error => console.error('Error:', error));
-            }
 
 
 
@@ -240,15 +64,13 @@
         }
 
         function handleLocationResponse(isAtLocation) {
-            if (isAtLocation) {
-                // Proceed with the signup process
-                document.querySelector('.signup-form').classList.remove('hidden');
-                document.getElementById('locationVerification').classList.add('hidden');
-            } else {
-                alert("You need to be at a valid location to sign up.");
-                // Optionally, take further actions like redirecting the user
-            }
-        }
+    if (isAtLocation) {
+        window.location.href = '/service1/signup';
+    } else {
+        alert("You need to be at a valid location to sign up.");
+    }
+}
+
 
         function findNearestLocation(userPos, locations) {
             let nearest = null;

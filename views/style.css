@@ -1,0 +1,111 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    height: 100%;
+}
+
+.welcome-message {
+    font-size: 48px; /* Adjust the font size as needed */
+    color: #fff; /* Set the text color to white */
+    border: 2px solid #fff; /* Add a white border */
+    padding: 10px 20px; /* Add padding to create space around the text */
+    text-align: center;
+}
+
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    color: #000;
+    background-image: url('https://uplink.weforum.org/uplink/sfc/servlet.shepherd/document/download/0692o00000f4mJ5AAI');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: -1;
+}
+
+.dark-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: -1;
+}
+
+.menu {
+    list-style-type: none;
+    display: flex;
+    justify-content: space-between; /* Adjusted to evenly space the menu items */
+    margin-top: 50px;
+    padding-left: 0; /* Remove default padding */
+}
+
+.menu li {
+    flex-grow: 1; /* Make the menu items span the available space evenly */
+    margin: 0 5px; /* Add margin to create space between buttons */
+    padding: 20px 20px;
+    width: 150px; /* Set a fixed width for the buttons */
+    text-align: center; /* Center-align the text */
+    background-color: #ffffff;
+    color: #000000;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: bold; /* Make the text bold */
+    transition: background-color 0.3s; /* Add transition for smooth hover effect */
+}
+
+.menu li:hover {
+    background-color: #555;
+}
+
+
+/* Add this CSS to your existing stylesheet */
+
+.location-verification {
+    text-align: center; /* Center-align the content */
+    margin-top: 50px; /* Add some top margin for spacing */
+}
+
+.location-verification h2 {
+    font-size: 32px; /* Adjust the font size */
+    color: #fff; /* Set the text color */
+}
+
+.location-verification button {
+    flex-grow: 1; /* Make the buttons span the available space evenly */
+    margin: 10px 5px; /* Add margin for spacing */
+    padding: 20px 40px; /* Adjust padding */
+    background-color: #ffffff; /* Button background color */
+    color: #000000; /* Button text color */
+    border: none; /* Remove button border */
+    border-radius: 5px; /* Add border radius */
+    cursor: pointer; /* Add cursor pointer */
+    font-size: 18px; /* Adjust font size */
+    font-weight: bold; /* Make the text bold */
+    transition: background-color 0.3s; /* Add transition for smooth hover effect */
+}
+
+.location-verification button:hover {
+    background-color: #555; /* Change background color on hover */
+}
+

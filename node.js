@@ -14,42 +14,30 @@ const validLocations = {
 
 // Middleware for parsing application/json
 app.use(express.json());
-app.get('/', (req, res) => {
-  res.redirect('/service1');
-});
 
+// Middleware for parsing application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: true }));
 
-// Service 1
+// Middleware to serve static files
+app.use(express.static('views'));
+
+// Route to serve Service 1 HTML page
 app.get('/service1', (req, res) => {
     res.sendFile(__dirname + '/views/service1.html');
 });
 
-// Service for dynamic pages based on unique IDs
-app.get('/:uniqueId', (req, res) => {
-  const uniqueId = req.params.uniqueId;
-  const locationName = getLocationName(uniqueId);
-  if (locationName) {
-      res.send(`
-          <!DOCTYPE html>
-          <html lang="en">
-          <head>
-              <meta charset="UTF-8">
-              <meta name="viewport" content="width=device-width, initial-scale=1.0">
-              <title>Welcome to Mill ${locationName}</title>
-          </head>
-          <body>
-              <h1>Welcome to Mill ${locationName}</h1>
-              <!-- Other content goes here -->
-          </body>
-          </html>
-      `);
-  } else {
-      res.status(404).send('Location not found');
-  }
+app.get('/service1/signup.css', (req, res) => {
+    res.set('Content-Type', 'text/css');
+    res.sendFile(__dirname + '/views/signup.css');
 });
 
+// Route to handle signup GET requests
+app.get('/service1/signup', (req, res) => {
+    // Render the signup form here
+    res.sendFile(__dirname + '/views/signup.html');
+});
 
-// Signup route to handle POST requests
+// Route to handle signup POST requests
 app.post('/signup', (req, res) => {
     const { name, email, role } = req.body;
     const uniqueId = uuidv4(); // Generate a unique ID for the user
@@ -71,15 +59,7 @@ app.post('/signup', (req, res) => {
     }
 });
 
+// Start the server
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
-
-// Function to get location name from unique ID
-function getLocationName(uniqueId) {
-    // This function extracts location name from the validLocations object based on the unique ID
-    // Implement your logic here to fetch the location name associated with the unique ID
-    // For now, I'll just return the first location name as a placeholder
-    const locationNames = Object.keys(validLocations);
-    return locationNames.length > 0 ? locationNames[0] : "Unknown Location";
-}
