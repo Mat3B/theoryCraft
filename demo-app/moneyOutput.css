@@ -1,0 +1,92 @@
+/* Styles for welcome message */
+.welcome-message {
+    font-size: 48px;
+    color: #fff;
+    border: 2px solid #fff;
+    padding: 10px 20px;
+    text-align: center;
+  }
+  
+  /* General styles */
+  html, body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    height: 100%;
+  }
+  
+  body {
+    font-family: 'Montserrat', sans-serif;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    color: #000;
+    background-image: url('https://uplink.weforum.org/uplink/sfc/servlet.shepherd/document/download/0692o00000f4mJ5AAI');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+  }
+  
+  body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: -1;
+  }
+  
+  .dark-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: -1;
+  }
+  
+  /* Styles for box container */
+  .box-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+  }
+  
+/* Styles for individual boxes */
+.box {
+    background-color: #242222; /* Dark grey background */
+    color: #fff; /* White text color */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 0 20px;
+    width: 350px;
+  }
+
+.box h2 {
+    font-size: 36px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.box p {
+    font-weight: bold;
+    font-size: 18px;
+}
+  
+  .carbon-credits-box {
+    border: 2px solid rgb(0, 247, 16); /* Green border for carbon credits box */
+  }
+  
+  .no-carbon-credits-box {
+    border: 2px solid rgb(255, 0, 0); /* Red border for no carbon credits box */
+  }
+  
+  
