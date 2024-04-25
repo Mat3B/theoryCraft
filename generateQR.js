@@ -6,7 +6,7 @@ const db = require('./database');  // Adjust the path as necessary to point to y
 
 function generateFiles(uniqueId) {
     // Manually enter the ngrok URL
-    const ngrokUrl = 'https://29ed-164-153-54-188.ngrok-free.app';
+    const ngrokUrl = 'https://30f1-164-153-54-188.ngrok-free.app';
 
     // Construct the full URL using the ngrok URL and unique ID
     const fullUrl = `${ngrokUrl}/uniqueId/${uniqueId}.html`; // Added .html to make the QR code link to the HTML file
