@@ -1,10 +1,12 @@
 const qr = require('qrcode');
 const fs = require('fs');
 const path = require('path');
+const db = require('./database');  // Adjust the path as necessary to point to your database.js
+
 
 function generateFiles(uniqueId) {
     // Manually enter the ngrok URL
-    const ngrokUrl = 'https://35af-198-21-202-24.ngrok-free.app';
+    const ngrokUrl = 'https://29ed-164-153-54-188.ngrok-free.app';
 
     // Construct the full URL using the ngrok URL and unique ID
     const fullUrl = `${ngrokUrl}/uniqueId/${uniqueId}.html`; // Added .html to make the QR code link to the HTML file
@@ -25,6 +27,13 @@ function generateFiles(uniqueId) {
         }
         console.log(`QR code generated for ${uniqueId}: ${fullUrl}`);
 
+        db.run(`INSERT INTO UniqueIDs (id) VALUES (?)`, [uniqueId], (err) => {
+            if (err) {
+                console.error('Error inserting data into the database', err);
+            } else {
+                console.log(`Stored unique ID in database: ${uniqueId}`); // Explicitly log the stored unique ID
+            }
+        });
         // Generate HTML file
         const locationName = "Clemson University";
 
@@ -37,10 +46,22 @@ function generateFiles(uniqueId) {
             <link rel="stylesheet" href="/style.css">
         </head>
         <body>
-            <h1 class="welcome-message">Welcome to the Demo!</h1>
-            <!-- Additional content can be added here -->
+            <h1 class="welcome-message">Mill Operation: ${locationName}</h1>
+            <form action="/submit/${uniqueId}" method="post">
+                <label class="log-input-label" for="tonsInput">Tons of logs for this truckload:</label>
+                <input type="number" id="tonsInput" name="tons" min="0" step="0.01" placeholder="Enter tons">
+                <button type="submit">Submit</button>
+            </form>
+            <div class="box-container">
+                <div class="box">
+                    <h2>Load Breakdown</h2>
+                    <p>Money made using carbon credits: $<span id="carbonMoney">0</span></p>
+                </div>
+            </div>
         </body>
         </html>`;
+    
+        
         
         
         

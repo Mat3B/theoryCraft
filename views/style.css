@@ -109,3 +109,66 @@ body::before {
     background-color: #555; /* Change background color on hover */
 }
 
+  /* Styles for box container */
+  .box-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+  }
+  
+/* Styles for individual boxes */
+.box-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+.box {
+    background-color: #000000; /* Dark grey background */
+    color: #fff; /* White text color */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 2px solid #fff; /* White border for the box */
+    padding: 20px;
+    width: 350px;
+    text-align: center;
+}
+.log-input-label {
+    font-weight: bold;
+    color: #fff; /* White text color for the label */
+}
+
+.box h2 {
+    font-size: 36px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.box p {
+    font-weight: bold;
+    font-size: 18px;
+}
+  
+  .carbon-credits-box {
+    border: 2px solid rgb(255, 255, 255); /* Green border for carbon credits box */
+  }
+  
+  .no-carbon-credits-box {
+    border: 2px solid rgb(255, 0, 0); /* Red border for no carbon credits box */
+  }
+
+  .submit-another {
+    display: block;
+    margin-top: 30px;
+    text-align: center;
+}
+
+.submit-button {
+    font-size: 24px;
+    padding: 15px 30px;
+    background-color: white;
+    color: black;
+    border: 2px solid white;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 15px;
+}
