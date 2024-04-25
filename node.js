@@ -42,7 +42,7 @@ app.get('/service1/signup', (req, res) => {
     res.sendFile(__dirname + '/views/signup.html');
 });
 
-app.use('/uniqueId/qrcodes', express.static('/Users/breland/Desktop/theoryCraft/uniqueId/qrcodes'));
+app.use('/uniqueId/qrcodes', express.static('/Users/breland/Documents/GitHub/theoryCraft/qrcodes'));
 
 
 

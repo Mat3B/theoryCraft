@@ -12,7 +12,7 @@ const ngrokUrl = 'http://localhost:3000';
 const fullUrl = `${ngrokUrl}/${uniqueId}`;
 
 // Directory where the QR codes will be stored
-const baseDir = '/Users/breland/Desktop/theoryCraft/uniqueId/qrcodes';
+const baseDir = '/Users/breland/Documents/GitHub/theoryCraft/qrcodes';
 
 // Create the directory if it doesn't exist
 if (!fs.existsSync(baseDir)) {
