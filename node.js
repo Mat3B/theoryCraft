@@ -26,10 +26,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Middleware to serve static files
 app.use(express.static('views'));
 
+app.use('/qrcodes', express.static('/Users/breland/Documents/GitHub/theoryCraft/qrcodes'));
+
 // Route to serve Service 1 HTML page
 app.get('/service1', (req, res) => {
     res.sendFile(__dirname + '/views/service1.html');
 });
+
+
 
 app.get('/service1/signup.css', (req, res) => {
     res.set('Content-Type', 'text/css');
@@ -43,6 +47,8 @@ app.get('/service1/signup', (req, res) => {
 });
 
 app.use('/uniqueId/qrcodes', express.static('/Users/breland/Documents/GitHub/theoryCraft/qrcodes'));
+
+app.use('/uniqueId', express.static('/Users/breland/Documents/GitHub/theoryCraft/qrcodes'));
 
 
 
@@ -72,6 +78,7 @@ app.get('/uniqueId/:uniqueId', (req, res) => {
         res.status(404).send('Location not found');
     }
 });
+
 
 
 
